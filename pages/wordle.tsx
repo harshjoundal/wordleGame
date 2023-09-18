@@ -10,48 +10,9 @@ const Wordle = () => {
   const [word, setWord] = useState("");
   const [isvalid, setIsvalid] = useState("true");
 
-  let Defaultcolor = new Array(5).fill("transparent")
-  const [color,setColor] = useState(Defaultcolor)
-
-
-  const onEnter = async () =>{
-    if(word.length != 5){
-        alert("Please Enter the full word!")
-        return
-    }
-
-    let res = await axios.get(`http://localhost:3001/api/validate?word=${word}`)
-    .then(res =>{
-      let isvalidWord = res.data.isvalid;
-      let message = res.data.message;
-      
-  
-
-      if(word == wordDay){
-        setColor(["green","green","green","green","green"])
-      }
-      for(let i = 0;i<word.length;i++){
-        if(wordDay.includes(word[i])){
-          if(word[i] == wordDay[i]){
-              Defaultcolor[i] = "green";
-              setColor([...Defaultcolor])
-
-          }
-          else{
-            Defaultcolor[i] = "yellow"
-            setColor([...Defaultcolor])
-          }
-        }
-      }
-
-    }
-    )
-    
-    
-  }
-
+  const [ chances,setChances ] = useState(5)
   const getWordoftheday = async ()=>{
-    let res = await axios.get("http://localhost:3001/api/wordOfTheDay")
+    let res = await axios.get("http://localhost:3000/api/wordOfTheDay")
     setWordDay(res.data.wordOdtheDay)
   }
   useEffect(()=>{
@@ -80,14 +41,23 @@ const Wordle = () => {
     <div className={styles.main}>
        <div className={styles.title}>Wordle</div>
 
-       <div>isValid : {isvalid}</div>
+       <div>Chances Left : {chances}</div>
+
        <div className={styles.gameContainer}>
-        <WordleRow rowNumber={1} setWord={setWord} onEnter={onEnter} bcolor={color} />
-        <WordleRow rowNumber={2} setWord={setWord} onEnter={onEnter} bcolor={color}/>
-        <WordleRow rowNumber={3} setWord={setWord} onEnter={onEnter} bcolor={color}/>
-        <WordleRow rowNumber={4} setWord={setWord} onEnter={onEnter} bcolor={color}/>
-        <WordleRow rowNumber={5} setWord={setWord} onEnter={onEnter} bcolor={color}/>
+        
+        <WordleRow rowNumber={1} setWord={setWord} setChances={setChances} chances={chances}  wordOfday ={wordDay} />
+        <WordleRow rowNumber={2} setWord={setWord} setChances={setChances} chances={chances}  wordOfday ={wordDay}/>
+        <WordleRow rowNumber={3} setWord={setWord} setChances={setChances} chances={chances}  wordOfday ={wordDay}/>
+        <WordleRow rowNumber={4} setWord={setWord} setChances={setChances} chances={chances}  wordOfday ={wordDay}/>
+        <WordleRow rowNumber={5} setWord={setWord} setChances={setChances} chances={chances}  wordOfday ={wordDay}/>
+
+        <div>
+          <button className={styles.reset} onClick={()=>{
+            window.location.reload()
+          }}>Reset</button>
+        </div>
        </div>
+
     </div>
   )
 }

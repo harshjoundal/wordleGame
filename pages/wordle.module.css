@@ -41,3 +41,10 @@
     text-align: center;
     border-radius: 8px;
 }
+.reset{
+    margin: auto;
+    margin-top: 20px;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 4px;
+}
