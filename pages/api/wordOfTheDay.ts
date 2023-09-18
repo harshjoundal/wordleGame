@@ -32,5 +32,6 @@ export const fiveLetterWords = [
 export default function wordOftheDay (req : NextApiRequest,res:NextApiResponse <{wordOdtheDay : string}>){
 
     let {word} = req.query
-    res.status(200).json({wordOdtheDay : fiveLetterWords[3]})
+    const randomNumber = Math.floor(Math.random() * 25) + 1;
+    res.status(200).json({wordOdtheDay : fiveLetterWords[randomNumber]})
 }

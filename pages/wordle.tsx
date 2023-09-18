@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import styles from './wordle.module.css'
 import axios from 'axios';
 import WordleRow from './components/wordleRow';
-import wordOftheDay from './api/wordOfTheDay';
+
 
 const Wordle = () => {
   const [wordDay,setWordDay] = useState("");
